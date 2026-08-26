@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Clothes - Official Store</title>
+    <style>
+        :root {
+            --primary-pink: #e11d48;
+            --dark-color: #0f172a;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --gray-text: #64748b;
+            --border-color: #cbd5e1;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark-color);
+        }
+        .top-banner {
+            background-color: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 0;
+            letter-spacing: 0.5px;
+        }
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-pink);
+            text-decoration: none;
+            line-height: 1;
+        }
+        .logo span {
+            color: var(--dark-color);
+            display: block;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 9px 15px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+        }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background-color: var(--primary-pink); color: var(--white); }
+        .btn-primary:hover { background-color: #be123c; }
+        .btn-outline { background: #f1f5f9; color: var(--dark-color); border: 1px solid var(--border-color); }
+
+        /* MAIN CATEGORIES BAR (Baby, Boys, Girls, Men, Women, Gifts) */
+        .categories-bar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 20px;
+            overflow-x: auto;
+        }
+        .cat-chip {
+            padding: 6px 16px;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-color);
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: 0.2s;
+        }
+        .cat-chip:hover, .cat-chip.active {
+            color: var(--primary-pink);
+            border-bottom: 2px solid var(--primary-pink);
+        }
+
+        /* IMAGE-BASED SUB-CATEGORIES STRIP (Jaisa aapki image mein hai) */
+        .subcat-image-strip-container {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            overflow-x: auto;
+            display: none;
+        }
+        .subcat-strip-title {
+            max-width: 1300px;
+            margin: 0 auto 10px auto;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--dark-color);
+            text-transform: uppercase;
+        }
+        .subcat-strip-scroll {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+        .subcat-thumb-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            min-width: 85px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .subcat-thumb-card:hover { transform: translateY(-3px); }
+        .subcat-thumb-img {
+            width: 70px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #f1f5f9;
+            margin-bottom: 6px;
+        }
+        .subcat-thumb-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--dark-color);
+            line-height: 1.2;
+        }
+
+        /* FILTER BAR (Category, Size, Colour, Brand, Pattern) */
+        .filter-bar-container {
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: none;
+        }
+        .filter-bar-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-dropdown {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark-color);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .main-container {
+            max-width: 1300px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        /* OWNER DASHBOARD */
+        .owner-dashboard {
+            display: none;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 2px solid #dc2626;
+        }
+        .owner-dashboard h3 { margin-bottom: 10px; color: #dc2626; font-size: 18px; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .form-grid input, .form-grid select {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            background: #fff;
+        }
+        .file-upload-box {
+            grid-column: 1 / -1;
+            background: #f8fafc;
+            padding: 12px;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+        }
+        .file-upload-box label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-text);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* PRODUCTS GRID */
+        .section-title { font-size: 18px; font-weight: 800; color: var(--dark-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .discount-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--primary-pink); color: white;
+            font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; z-index: 10;
+        }
+        .product-img-wrapper { width: 100%; height: 220px; background: #f1f5f9; position: relative; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { padding: 15px; }
+        .product-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--dark-color); }
+        .product-sub { font-size: 11px; color: var(--gray-text); margin-bottom: 6px; text-transform: uppercase; font-weight: 600; }
+        .product-price-box { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+        .product-price { font-size: 15px; font-weight: 800; color: var(--primary-pink); }
+        .old-price { font-size: 12px; color: var(--gray-text); text-decoration: line-through; }
+        
+        /* REVIEWS */
+        .reviews-section {
+            border-top: 1px solid var(--border-color);
+            padding: 10px 15px; background: #fafaf9; font-size: 12px;
+        }
+        .reviews-list {
+            max-height: 70px; overflow-y: auto; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px;
+        }
+        .review-item { background: #fff; padding: 4px 8px; border-radius: 4px; border: 1px solid #e2e8f0; color: #334155; }
+        .review-input-box { display: flex; gap: 5px; }
+        .review-input-box input {
+            flex: 1; padding: 5px 8px; font-size: 11px; border: 1px solid var(--border-color); border-radius: 4px; outline: none;
+        }
+
+        .comments-container {
+            max-width: 1300px; margin: 40px auto 20px auto; padding: 25px;
+            background: white; border-radius: 10px; border: 1px solid var(--border-color);
+        }
+        .comment-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .comment-form input, .comment-form textarea {
+            padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none;
+        }
+        .comment-form textarea { grid-column: 1 / -1; height: 70px; }
+        .comments-list { display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto; }
+        .comment-card { background: #f8fafc; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 12px; }
+        .comment-card span { font-weight: 700; color: var(--primary-pink); }
+
+        /* MODALS */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-box {
+            background: white; padding: 25px; border-radius: 10px; width: 400px; max-width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        .modal-box h3 { margin-bottom: 15px; font-size: 18px; color: var(--dark-color); }
+        .modal-box label { font-size: 12px; font-weight: 600; color: var(--gray-text); display: block; margin-bottom: 4px; }
+        .modal-box input, .modal-box select {
+            width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-banner">
+        🔥 Welcome to Sky Clothes Official Store | Cash on Delivery Available Nationwide
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                Sky Clothes
+                <span>Official Store</span>
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="openOwnerLoginModal()">🔒 Owner Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CATEGORIES BAR (Baby, Boys, Girls, Men, Women, Gifts) -->
+    <div class="categories-bar">
+        <div class="cat-chip active" onclick="selectMainCategory('All', this)">All</div>
+        <div class="cat-chip" onclick="selectMainCategory('Baby', this)">Baby</div>
+        <div class="cat-chip" onclick="selectMainCategory('Boys', this)">Boys</div>
+        <div class="cat-chip" onclick="selectMainCategory('Girls', this)">Girls</div>
+        <div class="cat-chip" onclick="selectMainCategory('Men', this)">Men</div>
+        <div class="cat-chip" onclick="selectMainCategory('Women', this)">Women</div>
+        <div class="cat-chip" onclick="selectMainCategory('Gifts', this)">Gifts</div>
+    </div>
+
+    <!-- SUB-CATEGORY PICTURE STRIP (Jaisa aapki image mein hai) -->
+    <div class="subcat-image-strip-container" id="subcatStripContainer">
+        <div class="subcat-strip-title" id="stripTitle">Category Items</div>
+        <div class="subcat-strip-scroll" id="subcatStripScroll"></div>
+    </div>
+
+    <!-- FILTER BAR (Category, Size, Colour, Brand, Pattern) -->
+    <div class="filter-bar-container" id="filterBarContainer">
+        <div class="filter-bar-inner">
+            <select class="filter-dropdown" id="filterCategory" onchange="applyFilters()">
+                <option value="All">Category</option>
+            </select>
+            <select class="filter-dropdown" id="filterSize" onchange="applyFilters()">
+                <option value="All">Size (All)</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+            </select>
+            <select class="filter-dropdown" id="filterColour" onchange="applyFilters()">
+                <option value="All">Colour (All)</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Pink">Pink</option>
+                <option value="Blue">Blue</option>
+            </select>
+            <select class="filter-dropdown" id="filterBrand" onchange="applyFilters()">
+                <option value="All">Brand (All)</option>
+                <option value="Sky Exclusive">Sky Exclusive</option>
+                <option value="Next">Next</option>
+            </select>
+            <select class="filter-dropdown" id="filterPattern" onchange="applyFilters()">
+                <option value="All">Pattern (All)</option>
+                <option value="Plain">Plain</option>
+                <option value="Printed">Printed</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="main-container">
+        
+        <!-- OWNER DASHBOARD -->
+        <div class="owner-dashboard" id="ownerDashboard">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3>🛡️ Owner Upload & Discount Control Panel</h3>
+                <button class="btn" style="background:#dc2626; color:white;" onclick="logoutOwner()">Logout Owner</button>
+            </div>
+            
+            <div class="form-grid">
+                <input type="text" id="pName" placeholder="Item Name (e.g. Summer Dress)">
+                <input type="text" id="pPrice" placeholder="New Price (e.g. Rs. 2,499)">
+                <input type="text" id="pOldPrice" placeholder="Old Price (e.g. Rs. 3,500)">
+                <input type="text" id="pDiscount" placeholder="Discount (e.g. 20% OFF)">
+                
+                <select id="pMainCategory">
+                    <option value="Baby">Baby</option>
+                    <option value="Boys">Boys</option>
+                    <option value="Girls">Girls</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Gifts">Gifts</option>
+                </select>
+
+                <input type="text" id="pSubCategory" placeholder="Sub-Category (e.g. Rompers / Dresses)">
+                <input type="text" id="pSubImg" placeholder="Sub-Category Thumbnail Image URL">
+                
+                <select id="pSize">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+                <select id="pColour">
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Blue">Blue</option>
+                </select>
+
+                <div class="file-upload-box">
+                    <label>Select Main Product Picture from Computer</label>
+                    <input type="file" id="pImageFile" accept="image/*">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="addNewProductByOwner()">Publish Product to Website</button>
+        </div>
+
+        <div class="section-title">
+            <span id="currentCategoryTitle">Featured Collection</span>
+            <span id="itemCountDisplay" style="font-size:13px; color:var(--gray-text); font-weight:normal;"></span>
+        </div>
+        <div class="products-grid" id="productGrid"></div>
+    </div>
+
+    <!-- PUBLIC Q&A COMMENT SECTION -->
+    <div class="comments-container">
+        <h3>💬 Public Question & Discussion Comments</h3>
+        <p style="font-size: 12px; color: var(--gray-text); margin-bottom: 12px;">Agar delivery ya product ke baray mein kuch pochna ho toh yahan comment karein.</p>
+        
+        <div class="comment-form">
+            <input type="text" id="commName" placeholder="Aapka Naam">
+            <textarea id="commText" placeholder="Apna sawal ya comment likhein..."></textarea>
+            <button class="btn btn-primary" style="grid-column: 1 / -1;" onclick="postComment()">Post Comment</button>
+        </div>
+
+        <div class="comments-list" id="commentsList"></div>
+    </div>
+
+    <!-- OWNER LOGIN MODAL -->
+    <div class="modal-overlay" id="ownerLoginModal">
+        <div class="modal-box">
+            <h3>Owner Secure Login</h3>
+            <label>Owner Username</label>
+            <input type="text" id="ownerUser" placeholder="Enter username">
+            <label>Password</label>
+            <input type="text" id="ownerPass" placeholder="Enter password">
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <button class="btn btn-primary" style="flex:1;" onclick="verifyOwnerLogin()">Login</button>
+                <button class="btn btn-outline" style="background:#f1f5f9; padding:8px 16px; border-radius:6px; cursor:pointer;" onclick="closeModals()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-box">
+            <h3>Complete Your Purchase</h3>
+            <p id="checkoutItemInfo" style="font-size: 13px; font-weight: 700; color: var(--primary-pink); margin-bottom: 10px;"></p>
+            
+            <label>Aapka Naam</label>
+            <input type="text" id="orderBuyerName" placeholder="Full Name">
+
+            <label>Select Payment Method</label>
+            <select id="checkoutPaymentMethod">
+                <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+                <option value="JazzCash">JazzCash</option>
+                <option value="EasyPaisa">EasyPaisa</option>
+                <option value="UBL Bank">UBL Bank</option>
+            </select>
+
+            <label>Mobile Number</label>
+            <input type="text" id="checkoutPhone" placeholder="03001234567">
+
+            <label>Delivery Address</label>
+            <input type="text" id="checkoutAddress" placeholder="Complete address">
+
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <button class="btn btn-primary" style="flex:1;" onclick="confirmPurchaseOrder()">Confirm Order</button>
+                <button class="btn btn-outline" style="background:#f1f5f9; padding:8px 16px; border-radius:6px; cursor:pointer;" onclick="closeModals()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMainCat = 'All';
+        let currentSubCat = 'All';
+        let selectedProductForBuy = null;
+        let isOwnerLoggedIn = localStorage.getItem('sky_owner_logged') === 'true';
+
+        // PRE-DEFINED SUB-CATEGORIES WITH PICTURES
+        const categoryThumbnails = {
+            "Baby": [
+                { name: "Rompers", img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300" },
+                { name: "Sleepsuits", img: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=300" },
+                { name: "Baby Sets", img: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=300" },
+                { name: "Footwear", img: "https://images.unsplash.com/photo-1515940175183-6798fa498a8bf?w=300" }
+            ],
+            "Boys": [
+                { name: "T-Shirts", img: "https://images.unsplash.com/photo-1503944583220-7eeec390d40d?w=300" },
+                { name: "Jeans & Trousers", img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=300" },
+                { name: "Hoodies", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300" },
+                { name: "Footwear", img: "https://images.unsplash.com/photo-1514989940753-eaf052ddefb1?w=300" }
+            ],
+            "Girls": [
+                { name: "Dresses", img: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=300" },
+                { name: "Tops & T-Shirts", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=300" },
+                { name: "Sweatshirts", img: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=300" },
+                { name: "Trousers & Jeans", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300" },
+                { name: "Footwear", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300" }
+            ],
+            "Men": [
+                { name: "Shirts", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300" },
+                { name: "Suits", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300" },
+                { name: "Trousers", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300" },
+                { name: "Footwear", img: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=300" }
+            ],
+            "Women": [
+                { name: "Dresses", img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=300" },
+                { name: "Tops", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=300" },
+                { name: "Jeans", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300" },
+                { name: "Nightwear", img: "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=300" }
+            ],
+            "Gifts": [
+                { name: "Gift Sets", img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=300" },
+                { name: "Flowers", img: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=300" },
+                { name: "Toys & Games", img: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=300" }
+            ]
+        };
+
+        let defaultProducts = [
+            { id: 301, name: "Girls Floral Party Dress", price: "Rs. 2,999", oldPrice: "Rs. 3,999", discount: "25% OFF", mainCategory: "Girls", subCategory: "Dresses", size: "Medium", colour: "Pink", brand: "Sky Exclusive", pattern: "Printed", image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500", reviews: ["Very cute dress!"] },
+            { id: 302, name: "Boys Cotton Casual T-Shirt", price: "Rs. 1,299", oldPrice: "Rs. 1,699", discount: "23% OFF", mainCategory: "Boys", subCategory: "T-Shirts", size: "Small", colour: "Blue", brand: "Next", pattern: "Plain", image: "https://images.unsplash.com/photo-1503944583220-7eeec390d40d?w=500", reviews: ["Good fabric quality."] },
+            { id: 303, name: "Baby Cotton Romper Set", price: "Rs. 1,499", oldPrice: "Rs. 1,999", discount: "25% OFF", mainCategory: "Baby", subCategory: "Rompers", size: "Small", colour: "White", brand: "Sky Exclusive", pattern: "Plain", image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500", reviews: ["Soft fabric for babies."] }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('sky_owner_products_v4')) || defaultProducts;
+        let publicComments = JSON.parse(localStorage.getItem('sky_public_comments')) || [
+            { name: "Ahmed", text: "Baby rompers ki quality kesi hai?" }
+        ];
+
+        window.onload = function() {
+            checkOwnerState();
+            renderProducts();
+            renderComments();
+        };
+
+        function checkOwnerState() {
+            if(isOwnerLoggedIn) {
+                document.getElementById('ownerDashboard').style.display = 'block';
+            }
+        }
+
+        function openOwnerLoginModal() {
+            document.getElementById('ownerLoginModal').style.display = 'flex';
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+        }
+
+        function verifyOwnerLogin() {
+            let u = document.getElementById('ownerUser').value.trim();
+            let p = document.getElementById('ownerPass').value.trim();
+
+            if(u === "owner" && p === "Killer@786") {
+                isOwnerLoggedIn = true;
+                localStorage.setItem('sky_owner_logged', 'true');
+                closeModals();
+                location.reload();
+            } else {
+                alert('Galat Username ya Password!');
+            }
+        }
+
+        function logoutOwner() {
+            isOwnerLoggedIn = false;
+            localStorage.removeItem('sky_owner_logged');
+            location.reload();
+        }
+
+        function selectMainCategory(cat, element) {
+            currentMainCat = cat;
+            currentSubCat = 'All';
+
+            let chips = document.querySelectorAll('.categories-bar .cat-chip');
+            chips.forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            let stripContainer = document.getElementById('subcatStripContainer');
+            let filterContainer = document.getElementById('filterBarContainer');
+
+            if(cat === 'All' || !categoryThumbnails[cat]) {
+                stripContainer.style.display = 'none';
+                filterContainer.style.display = 'none';
+            } else {
+                stripContainer.style.display = 'block';
+                filterContainer.style.display = 'block';
+                
+                document.getElementById('stripTitle').innerText = `${cat} Collection`;
+                let scrollBox = document.getElementById('subcatStripScroll');
+                scrollBox.innerHTML = `<div class="subcat-thumb-card" onclick="selectSubCatFromStrip('All')"><div class="subcat-thumb-img" style="display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--primary-pink);background:#fff;">ALL</div><div class="subcat-thumb-name">All Items</div></div>`;
+
+                categoryThumbnails[cat].forEach(sub => {
+                    scrollBox.innerHTML += `
+                        <div class="subcat-thumb-card" onclick="selectSubCatFromStrip('${sub.name}')">
+                            <img src="${sub.img}" class="subcat-thumb-img">
+                            <div class="subcat-thumb-name">${sub.name}</div>
+                        </div>
+                    `;
+                });
+
+                // Populate Category Filter dropdown
+                let catFilter = document.getElementById('filterCategory');
+                catFilter.innerHTML = `<option value="All">Category (${cat})</option>`;
+                categoryThumbnails[cat].forEach(sub => {
+                    catFilter.innerHTML += `<option value="${sub.name}">${sub.name}</option>`;
+                });
+            }
+
+            renderProducts();
+        }
+
+        function selectSubCatFromStrip(subName) {
+            currentSubCat = subName;
+            renderProducts();
+        }
+
+        function applyFilters() {
+            renderProducts();
+        }
+
+        function addNewProductByOwner() {
+            let name = document.getElementById('pName').value.trim();
+            let price = document.getElementById('pPrice').value.trim();
+            let oldPrice = document.getElementById('pOldPrice').value.trim();
+            let discount = document.getElementById('pDiscount').value.trim();
+            let mainCategory = document.getElementById('pMainCategory').value;
+            let subCategory = document.getElementById('pSubCategory').value.trim() || "General";
+            let subImg = document.getElementById('pSubImg').value.trim() || "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300";
+            let size = document.getElementById('pSize').value;
+            let colour = document.getElementById('pColour').value;
+            let fileInput = document.getElementById('pImageFile');
+
+            if(!name || !price) {
+                alert('Naam aur Price lazmi likhein!');
+                return;
+            }
+
+            if(categoryThumbnails[mainCategory]) {
+                let exists = categoryThumbnails[mainCategory].some(s => s.name.toLowerCase() === subCategory.toLowerCase());
+                if(!exists) {
+                    categoryThumbnails[mainCategory].push({ name: subCategory, img: subImg });
+                }
+            }
+
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    saveProductToStorage(name, price, oldPrice, discount, mainCategory, subCategory, size, colour, e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveProductToStorage(name, price, oldPrice, discount, mainCategory, subCategory, size, colour, "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500");
+            }
+        }
+
+        function saveProductToStorage(name, price, oldPrice, discount, mainCategory, subCategory, size, colour, imageUrl) {
+            let newProd = {
+                id: Date.now(),
+                name,
+                price,
+                oldPrice,
+                discount,
+                mainCategory,
+                subCategory,
+                size,
+                colour,
+                brand: "Sky Exclusive",
+                pattern: "Plain",
+                image: imageUrl,
+                reviews: []
+            };
+            products.unshift(newProd);
+            localStorage.setItem('sky_owner_products_v4', JSON.stringify(products));
+            alert('Nayi product successfully publish ho gayi hai!');
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pOldPrice').value = '';
+            document.getElementById('pDiscount').value = '';
+            renderProducts();
+        }
+
+        function handleBuyClick(id) {
+            selectedProductForBuy = products.find(p => p.id === id);
+            if(selectedProductForBuy) {
+                document.getElementById('checkoutItemInfo').innerText = `Item: ${selectedProductForBuy.name} (${selectedProductForBuy.price})`;
+                document.getElementById('checkoutModal').style.display = 'flex';
+            }
+        }
+
+        function confirmPurchaseOrder() {
+            let buyerName = document.getElementById('orderBuyerName').value.trim();
+            let paymentMethod = document.getElementById('checkoutPaymentMethod').value;
+            let phone = document.getElementById('checkoutPhone').value.trim();
+            let address = document.getElementById('checkoutAddress').value.trim();
+
+            if(!buyerName || !phone || !address) {
+                alert('Naam, Mobile Number aur Address mukammal likhein!');
+                return;
+            }
+
+            alert(`Order Successful!\nCustomer: ${buyerName}\nItem: ${selectedProductForBuy.name}\nPayment: ${paymentMethod}\nAapka order confirm ho gaya hai!`);
+            closeModals();
+        }
+
+        function addReviewToProduct(id) {
+            let inputField = document.getElementById(`review-input-${id}`);
+            let reviewText = inputField.value.trim();
+            if(!reviewText) return;
+
+            let prod = products.find(p => p.id === id);
+            if(prod) {
+                if(!prod.reviews) prod.reviews = [];
+                prod.reviews.push(reviewText);
+                localStorage.setItem('sky_owner_products_v4', JSON.stringify(products));
+                inputField.value = '';
+                renderProducts();
+            }
+        }
+
+        function postComment() {
+            let name = document.getElementById('commName').value.trim();
+            let text = document.getElementById('commText').value.trim();
+            if(!name || !text) {
+                alert('Naam aur comment dono likhein!');
+                return;
+            }
+
+            publicComments.unshift({ name, text });
+            localStorage.setItem('sky_public_comments', JSON.stringify(publicComments));
+            document.getElementById('commName').value = '';
+            document.getElementById('commText').value = '';
+            renderComments();
+        }
+
+        function renderComments() {
+            let container = document.getElementById('commentsList');
+            container.innerHTML = '';
+            if(publicComments.length === 0) {
+                container.innerHTML = '<p style="color:var(--gray-text); font-size:12px;">Abhi koi comment nahi hai.</p>';
+                return;
+            }
+            publicComments.forEach(c => {
+                container.innerHTML += `
+                    <div class="comment-card">
+                        <span>${c.name}:</span> ${c.text}
+                    </div>
+                `;
+            });
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            let fCat = document.getElementById('filterCategory') ? document.getElementById('filterCategory').value : 'All';
+            let fSize = document.getElementById('filterSize') ? document.getElementById('filterSize').value : 'All';
+            let fColour = document.getElementById('filterColour') ? document.getElementById('filterColour').value : 'All';
+            let fBrand = document.getElementById('filterBrand') ? document.getElementById('filterBrand').value : 'All';
+            let fPattern = document.getElementById('filterPattern') ? document.getElementById('filterPattern').value : 'All';
+
+            let filtered = products.filter(p => {
+                let matchMain = (currentMainCat === 'All' || p.mainCategory === currentMainCat);
+                let matchSubStrip = (currentSubCat === 'All' || p.subCategory === currentSubCat);
+                let matchCatDropdown = (fCat === 'All' || p.subCategory === fCat);
+                let matchSize = (fSize === 'All' || p.size === fSize);
+                let matchColour = (fColour === 'All' || p.colour === fColour);
+                let matchBrand = (fBrand === 'All' || p.brand === fBrand);
+                let matchPattern = (fPattern === 'All' || p.pattern === fPattern);
+
+                return matchMain && matchSubStrip && matchCatDropdown && matchSize && matchColour && matchBrand && matchPattern;
+            });
+
+            document.getElementById('itemCountDisplay').innerText = `(${filtered.length} Items)`;
+            document.getElementById('currentCategoryTitle').innerText = currentMainCat === 'All' ? 'Featured Collection' : `${currentMainCat} ${currentSubCat !== 'All' ? '/ ' + currentSubCat : ''}`;
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--gray-text); padding:30px;">Is selection mein koi item mojood nahi hai.</p>';
+                return;
+            }
+
+            filtered.forEach(p => {
+                let reviewsHtml = '';
+                if(p.reviews && p.reviews.length > 0) {
+                    p.reviews.forEach(r => {
+                        reviewsHtml += `<div class="review-item">💬 ${r}</div>`;
+                    });
+                } else {
+                    reviewsHtml = '<div class="review-item" style="color:#94a3b8;">No reviews yet.</div>';
+                }
+
+                let badgeHtml = p.discount ? `<div class="discount-badge">${p.discount}</div>` : '';
+                let oldPriceHtml = p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : '';
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        ${badgeHtml}
+                        <div>
+                            <div class="product-img-wrapper">
+                                <img src="${p.image}" alt="${p.name}" class="product-img">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-title">${p.name}</div>
+                                <div class="product-sub">${p.mainCategory} &bull; ${p.subCategory}</div>
+                                <div class="product-price-box">
+                                    <span class="product-price">${p.price}</span>
+                                    ${oldPriceHtml}
+                                </div>
+                                <button class="btn btn-primary" style="width:100%;" onclick="handleBuyClick(${p.id})">Purchase Now</button>
+                            </div>
+                        </div>
+                        <div class="reviews-section">
+                            <div style="font-weight:700; margin-bottom:4px; color:#475569;">Customer Reviews:</div>
+                            <div class="reviews-list">${reviewsHtml}</div>
+                            <div class="review-input-box">
+                                <input type="text" id="review-input-${p.id}" placeholder="Write review...">
+                                <button class="btn" style="background:var(--dark-color); color:white; padding:5px 8px; font-size:11px;" onclick="addReviewToProduct(${p.id})">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByClassName('product-title')[0].innerText.toLowerCase();
+                cards[i].style.display = title.includes(query) ? "flex" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
