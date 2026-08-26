@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Clothes - Comfort You Feel, Style You Love</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #0f172a;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --gray-text: #64748b;
+            --border-color: #e2e8f0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark-blue);
+        }
+        .top-banner {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            font-size: 13px;
+            padding: 6px 0;
+        }
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+        .logo span {
+            color: var(--dark-blue);
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 320px;
+            margin: 0 20px;
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 9px 15px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* Navbar & Mega Menu Styling */
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            font-size: 14px;
+            font-weight: 600;
+            align-items: center;
+        }
+        .nav-item {
+            position: static;
+        }
+        .nav-links > .nav-item > a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            padding: 10px 0;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        .nav-links > .nav-item > a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Full Width Mega Menu Dropdown */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fdfdfd;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            display: none;
+            padding: 30px 40px;
+            z-index: 999;
+        }
+        .nav-item:hover .mega-menu {
+            display: block;
+        }
+        .mega-menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 5 Text columns + 1 Image Grid Column */
+            gap: 20px;
+        }
+        .menu-column h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .menu-column ul {
+            list-style: none;
+        }
+        .menu-column ul li {
+            margin-bottom: 6px;
+        }
+        .menu-column ul li a {
+            text-decoration: none;
+            color: var(--gray-text);
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+        .menu-column ul li a:hover {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        /* Menu Image Grid (Like Screenshot Right Side) */
+        .menu-image-grid {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .menu-img-card {
+            text-align: center;
+            text-decoration: none;
+        }
+        .menu-img-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #e2e8f0;
+        }
+        .menu-img-card span {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-top: 4px;
+        }
+
+        .admin-login-btn {
+            background: #e2e8f0;
+            padding: 7px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            padding: 60px 20px;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .badge {
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        .hero h1 span {
+            color: var(--primary-blue);
+        }
+        .hero p {
+            font-size: 15px;
+            color: var(--gray-text);
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border: none;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none; 
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 2px dashed var(--primary-blue);
+        }
+        .admin-panel h3 {
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .form-grid input {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #e2e8f0;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+        .stock-status {
+            font-size: 13px;
+            color: #d97706;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .rating {
+            color: #f59e0b;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-banner">
+        FREE DELIVERY on orders above Rs. 2999 | 7 Days Easy Return
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                Sky
+                <span>Clothes</span>
+            </a>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search clothes, shoes, brands..." onkeyup="searchProducts()">
+            </div>
+            
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="#">New Arrival</a>
+                </li>
+
+                <!-- GIRLS MENU -->
+                <li class="nav-item">
+                    <a href="#">Girls</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="menu-column">
+                                <h4>Shop By Age</h4>
+                                <ul>
+                                    <li><a href="#">0-2 Years</a></li>
+                                    <li><a href="#">3-5 Years</a></li>
+                                    <li><a href="#">6-8 Years</a></li>
+                                    <li><a href="#">9-11 Years</a></li>
+                                    <li><a href="#">12-14 Years</a></li>
+                                    <li><a href="#">15+ Years</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Clothing</h4>
+                                <ul>
+                                    <li><a href="#">All Clothing</a></li>
+                                    <li><a href="#">Coats & Jackets</a></li>
+                                    <li><a href="#">Dresses</a></li>
+                                    <li><a href="#">Jeans</a></li>
+                                    <li><a href="#">Knitwear</a></li>
+                                    <li><a href="#">Leggings & Joggers</a></li>
+                                    <li><a href="#">T-Shirts & Tops</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Footwear</h4>
+                                <ul>
+                                    <li><a href="#">All Footwear</a></li>
+                                    <li><a href="#">Boots</a></li>
+                                    <li><a href="#">Sandals & Clogs</a></li>
+                                    <li><a href="#">Sneakers</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Accessories</h4>
+                                <ul>
+                                    <li><a href="#">All Accessories</a></li>
+                                    <li><a href="#">Bags</a></li>
+                                    <li><a href="#">Hats & Caps</a></li>
+                                    <li><a href="#">Hair Accessories</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Brands</h4>
+                                <ul>
+                                    <li><a href="#">Next</a></li>
+                                    <li><a href="#">Adidas</a></li>
+                                    <li><a href="#">Lipsy Girl</a></li>
+                                    <li><a href="#">Monsoon</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- BOYS MENU (Exact match with your screenshot layout + image previews) -->
+                <li class="nav-item">
+                    <a href="#">Boys</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container">
+                            <div class="menu-column">
+                                <h4>Shop By Age</h4>
+                                <ul>
+                                    <li><a href="#">0-2 Years</a></li>
+                                    <li><a href="#">3-5 Years</a></li>
+                                    <li><a href="#">6-8 Years</a></li>
+                                    <li><a href="#">9-11 Years</a></li>
+                                    <li><a href="#">12-14 Years</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Clothing</h4>
+                                <ul>
+                                    <li><a href="#">All Clothing</a></li>
+                                    <li><a href="#">Coats & Jackets</a></li>
+                                    <li><a href="#">Jeans</a></li>
+                                    <li><a href="#">Joggers</a></li>
+                                    <li><a href="#">Shirts & T-Shirts</a></li>
+                                    <li><a href="#">Tracksuits</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Footwear</h4>
+                                <ul>
+                                    <li><a href="#">All Footwear</a></li>
+                                    <li><a href="#">Boots</a></li>
+                                    <li><a href="#">Sandals & Clogs</a></li>
+                                    <li><a href="#">Sneakers</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Brands</h4>
+                                <ul>
+                                    <li><a href="#">All Boys Brands</a></li>
+                                    <li><a href="#">Next</a></li>
+                                    <li><a href="#">Abercrombie & Fitch</a></li>
+                                    <li><a href="#">Adidas</a></li>
+                                    <li><a href="#">Baker by Ted Baker</a></li>
+                                </ul>
+                            </div>
+                            <!-- Right Side Featured Images (Like Screenshot) -->
+                            <div class="menu-image-grid">
+                                <a href="#" class="menu-img-card">
+                                    <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=300" alt="New In">
+                                    <span>New In</span>
+                                </a>
+                                <a href="#" class="menu-img-card">
+                                    <img src="https://images.unsplash.com/photo-1503944583266-ee390459a7eb?w=300" alt="Graphic T-Shirts">
+                                    <span>Graphic T-Shirts</span>
+                                </a>
+                                <a href="#" class="menu-img-card">
+                                    <img src="https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?w=300" alt="Vacation Edit">
+                                    <span>The Vacation Edit</span>
+                                </a>
+                                <a href="#" class="menu-img-card">
+                                    <img src="https://images.unsplash.com/photo-1507038772120-7f76f79c42e3?w=300" alt="Summer Footwear">
+                                    <span>Summer Footwear</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- BABY MENU -->
+                <li class="nav-item">
+                    <a href="#">Baby</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="menu-column">
+                                <h4>Shop By Age</h4>
+                                <ul>
+                                    <li><a href="#">0-3 Months</a></li>
+                                    <li><a href="#">3-6 Months</a></li>
+                                    <li><a href="#">6-9 Months</a></li>
+                                    <li><a href="#">9-12 Months</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Newborn Essentials</h4>
+                                <ul>
+                                    <li><a href="#">Bodysuits</a></li>
+                                    <li><a href="#">Sleepsuits</a></li>
+                                    <li><a href="#">Rompersuits</a></li>
+                                    <li><a href="#">Socks & Accessories</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Nursery & Bedding</h4>
+                                <ul>
+                                    <li><a href="#">Blankets</a></li>
+                                    <li><a href="#">Muslins</a></li>
+                                    <li><a href="#">Towels</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Feeding</h4>
+                                <ul>
+                                    <li><a href="#">Bibs</a></li>
+                                    <li><a href="#">Feeding Essentials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- WOMEN MENU -->
+                <li class="nav-item">
+                    <a href="#">Women</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="menu-column">
+                                <h4>Clothing</h4>
+                                <ul>
+                                    <li><a href="#">All Clothing</a></li>
+                                    <li><a href="#">Blouses & Shirts</a></li>
+                                    <li><a href="#">Coats & Jackets</a></li>
+                                    <li><a href="#">Dresses</a></li>
+                                    <li><a href="#">Jeans & Trousers</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Lingerie & Nightwear</h4>
+                                <ul>
+                                    <li><a href="#">All Lingerie</a></li>
+                                    <li><a href="#">Bras & Knickers</a></li>
+                                    <li><a href="#">Pyjamas</a></li>
+                                    <li><a href="#">Robes</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Footwear</h4>
+                                <ul>
+                                    <li><a href="#">Boots</a></li>
+                                    <li><a href="#">Flats & Heels</a></li>
+                                    <li><a href="#">Sandals</a></li>
+                                    <li><a href="#">Sneakers</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Shop By Fit</h4>
+                                <ul>
+                                    <li><a href="#">Curve</a></li>
+                                    <li><a href="#">Maternity</a></li>
+                                    <li><a href="#">Petite</a></li>
+                                    <li><a href="#">Tall</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Brands</h4>
+                                <ul>
+                                    <li><a href="#">Boden</a></li>
+                                    <li><a href="#">Lipsy</a></li>
+                                    <li><a href="#">Love & Roses</a></li>
+                                    <li><a href="#">Reiss</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- MEN MENU -->
+                <li class="nav-item">
+                    <a href="#">Men</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="menu-column">
+                                <h4>Clothing</h4>
+                                <ul>
+                                    <li><a href="#">All Clothing</a></li>
+                                    <li><a href="#">Coats & Jackets</a></li>
+                                    <li><a href="#">Polos & Shirts</a></li>
+                                    <li><a href="#">Suits & Tailoring</a></li>
+                                    <li><a href="#">T-Shirts & Tops</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Footwear</h4>
+                                <ul>
+                                    <li><a href="#">All Footwear</a></li>
+                                    <li><a href="#">Boots & Shoes</a></li>
+                                    <li><a href="#">Sandals</a></li>
+                                    <li><a href="#">Sneakers</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Accessories</h4>
+                                <ul>
+                                    <li><a href="#">Bags & Wallets</a></li>
+                                    <li><a href="#">Belts</a></li>
+                                    <li><a href="#">Sunglasses</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Brands</h4>
+                                <ul>
+                                    <li><a href="#">Adidas Originals</a></li>
+                                    <li><a href="#">FatFace</a></li>
+                                    <li><a href="#">The North Face</a></li>
+                                    <li><a href="#">Threadbare</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- HOME MENU -->
+                <li class="nav-item">
+                    <a href="#">Home</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="menu-column">
+                                <h4>Bedroom & Bedding</h4>
+                                <ul>
+                                    <li><a href="#">All Bedding</a></li>
+                                    <li><a href="#">Bed Sheets</a></li>
+                                    <li><a href="#">Duvets & Pillows</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Kitchen & Dining</h4>
+                                <ul>
+                                    <li><a href="#">Dinnerware</a></li>
+                                    <li><a href="#">Glassware</a></li>
+                                    <li><a href="#">Kitchen Storage</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Bathroom</h4>
+                                <ul>
+                                    <li><a href="#">Accessories</a></li>
+                                    <li><a href="#">Towels & Bathmats</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Home Furnishings</h4>
+                                <ul>
+                                    <li><a href="#">Curtains & Blinds</a></li>
+                                    <li><a href="#">Cushions & Throws</a></li>
+                                    <li><a href="#">Rugs & Runners</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Home Accessories</h4>
+                                <ul>
+                                    <li><a href="#">Lighting & Mirrors</a></li>
+                                    <li><a href="#">Photo Frames</a></li>
+                                    <li><a href="#">Vases & Decor</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- BRANDS MENU -->
+                <li class="nav-item">
+                    <a href="#">Brands</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="menu-column">
+                                <h4>Top Fashion Brands</h4>
+                                <ul>
+                                    <li><a href="#">Shop All Fashion</a></li>
+                                    <li><a href="#">Lipsy</a></li>
+                                    <li><a href="#">The Set</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Kids Brands</h4>
+                                <ul>
+                                    <li><a href="#">Shop All Kids</a></li>
+                                    <li><a href="#">Lipsy Girl</a></li>
+                                    <li><a href="#">Little Bird</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Home Brands</h4>
+                                <ul>
+                                    <li><a href="#">Shop All Home</a></li>
+                                    <li><a href="#">Cath Kidston</a></li>
+                                    <li><a href="#">Furn</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu-column">
+                                <h4>Sports Brands</h4>
+                                <ul>
+                                    <li><a href="#">Adidas</a></li>
+                                    <li><a href="#">Next Active</a></li>
+                                    <li><a href="#">Under Armour</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li><button class="admin-login-btn" onclick="toggleAdminPanel()">🔒 Owner Login</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">New Collection - Sky 2026</span>
+            <h1>Comfort you feel.<br><span>Style you love.</span></h1>
+            <p>Discover easy-to-wear fashion designed for everyday life. Clean looks and comfortable fabrics.</p>
+            <a href="#shop" class="btn btn-primary">Shop Now →</a>
+        </div>
+    </section>
+
+    <div class="main-container" id="shop">
+        
+        <!-- SECURE OWNER PANEL -->
+        <div class="admin-panel" id="ownerPanelBox">
+            <h3>🔒 Owner Panel (Add New Product & Stock Management)</h3>
+            <div class="form-grid">
+                <input type="text" id="pName" placeholder="Product Name">
+                <input type="text" id="pPrice" placeholder="Price (e.g. Rs. 2499)">
+                <input type="number" id="pStock" placeholder="Total Stock (e.g. 10)" min="1" max="10">
+                <input type="text" id="pImg" placeholder="Image URL">
+                <button class="btn btn-primary" onclick="addProduct()">Add Product</button>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>Featured Collection & Inventory</h2>
+        </div>
+
+        <!-- PRODUCTS DISPLAY GRID -->
+        <div class="products-grid" id="productGrid"></div>
+
+    </div>
+
+    <script>
+        let isAdminLoggedIn = false;
+
+        let products = [
+            { id: 1, name: "Sky Classic Blue Shirt", price: "Rs. 2,499", stock: 8, image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" },
+            { id: 2, name: "Casual Summer Outfit", price: "Rs. 3,199", stock: 5, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" },
+            { id: 3, name: "Premium Denim Jacket", price: "Rs. 4,500", stock: 7, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500" }
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            products.forEach((p, index) => {
+                let deleteBtnStyle = isAdminLoggedIn ? 'block' : 'none';
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.image}" alt="${p.name}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500'">
+                        <div class="product-info">
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-price">${p.price}</div>
+                            <div class="stock-status">📦 Stock: ${p.stock} out of 10 available</div>
+                            <div class="rating">⭐⭐⭐⭐⭐ (4.8/5)</div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary" style="flex:1; padding: 8px;" onclick="alert('Added to Cart!')">Buy Now</button>
+                                <button class="btn-delete" style="display: ${deleteBtnStyle};" onclick="deleteProduct(${index})">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleAdminPanel() {
+            if (!isAdminLoggedIn) {
+                let password = prompt("Enter Owner Password (Default is: admin123):");
+                if (password === "admin123") {
+                    isAdminLoggedIn = true;
+                    document.getElementById('ownerPanelBox').style.display = 'block';
+                    alert("Owner Login Successful!");
+                    renderProducts();
+                } else if (password !== null) {
+                    alert("Incorrect Password!");
+                }
+            } else {
+                isAdminLoggedIn = false;
+                document.getElementById('ownerPanelBox').style.display = 'none';
+                alert("Logged out from Owner Panel.");
+                renderProducts();
+            }
+        }
+
+        function addProduct() {
+            const name = document.getElementById('pName').value;
+            const price = document.getElementById('pPrice').value;
+            const stock = document.getElementById('pStock').value;
+            const img = document.getElementById('pImg').value;
+
+            if(!name || !price || !stock) {
+                alert('Please fill out all details!');
+                return;
+            }
+
+            products.push({ id: Date.now(), name, price, stock: parseInt(stock), image: img || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500' });
+            
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pStock').value = '';
+            document.getElementById('pImg').value = '';
+
+            renderProducts();
+        }
+
+        function deleteProduct(index) {
+            if(confirm('Are you sure you want to delete this product?')) {
+                products.splice(index, 1);
+                renderProducts();
+            }
+        }
+
+        function searchProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByClassName('product-title')[0].innerText.toLowerCase();
+                cards[i].style.display = title.includes(query) ? "block" : "none";
+            }
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
