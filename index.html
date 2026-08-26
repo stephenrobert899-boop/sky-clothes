@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Clothes - Comfort You Feel, Style You Love</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #0f172a;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --gray-text: #475569;
+            --border-color: #cbd5e1;
+            --sale-red: #dc2626;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark-blue);
+        }
+        .top-banner {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 0;
+            letter-spacing: 0.5px;
+        }
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+        .logo {
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            letter-spacing: -1.5px;
+            text-decoration: none;
+            line-height: 1;
+        }
+        .logo span {
+            color: var(--dark-blue);
+            display: block;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 320px;
+            margin: 0 20px;
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            font-size: 14px;
+            font-weight: 700;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Secret Hidden Owner Login Trigger in Header */
+        .secret-admin-btn {
+            background: transparent;
+            color: var(--gray-text);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            border: 1px dashed var(--border-color);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .secret-admin-btn:hover {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            padding: 60px 20px;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .badge {
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .hero h1 {
+            font-size: 44px;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-weight: 900;
+        }
+        .hero h1 span {
+            color: var(--primary-blue);
+        }
+        .hero p {
+            font-size: 16px;
+            color: var(--gray-text);
+            margin-bottom: 20px;
+            max-width: 550px;
+            font-weight: 500;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+            transition: transform 0.2s;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark-blue);
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .cat-tab {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--gray-text);
+            transition: all 0.2s;
+        }
+        .cat-tab.active, .cat-tab:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        /* MASTER OWNER PANEL (100% Hidden by default, opens only with killer@786) */
+        .master-admin-panel {
+            display: none !important;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 35px;
+            border: 2px solid var(--sale-red);
+        }
+        .master-admin-panel h3 {
+            margin-bottom: 15px;
+            color: var(--sale-red);
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .form-grid input, .form-grid select {
+            padding: 11px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: white;
+        }
+
+        /* Products Grid Styling */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--sale-red);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+        .product-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            background: #e2e8f0;
+        }
+        .product-info {
+            padding: 18px;
+        }
+        .product-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--dark-blue);
+        }
+        .price-box {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .product-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+        .old-price {
+            font-size: 13px;
+            color: var(--gray-text);
+            text-decoration: line-through;
+        }
+        .stock-status {
+            font-size: 13px;
+            color: #d97706;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        /* Owner edit/delete buttons inside cards (Hidden for normal users) */
+        .owner-tools {
+            display: none;
+            gap: 5px;
+            margin-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 10px;
+        }
+        .btn-edit {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            flex: 1;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-banner">
+        🔥 MEGA SALE LIVE! Free Delivery on orders above Rs. 2999 | 7 Days Easy Return Policy
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                Sky
+                <span>Clothes</span>
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#" onclick="filterByCategory('All')">Home</a></li>
+                <li><a href="#" onclick="filterByCategory('Boys')">Boys</a></li>
+                <li><a href="#" onclick="filterByCategory('Girls')">Girls</a></li>
+                <li><a href="#" onclick="filterByCategory('Baby')">Baby</a></li>
+                <li><a href="#" onclick="filterByCategory('Home')">Home</a></li>
+                <!-- Secret Owner Login Button (Subtle styling so normal users don't pay attention) -->
+                <li><button class="secret-admin-btn" onclick="openOwnerPanel()">🔒 Owner Control</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">New Collection 2026</span>
+            <h1>Comfort you feel.<br><span>Style you love.</span></h1>
+            <p>Discover premium clothing, winter wear, and home essentials designed for everyday elegance.</p>
+            <a href="#shop" class="btn btn-primary">Shop Collection →</a>
+        </div>
+    </section>
+
+    <div class="main-container" id="shop">
+        
+        <!-- OWNER MASTER CONTROL PANEL (Hidden by default, unlocks with password: killer@786) -->
+        <div class="master-admin-panel" id="masterPanel">
+            <h3>👑 Owner Master Control Panel (Authorized Only)</h3>
+            <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 15px;">Add new products, set custom sale badges (e.g. 50% OFF, SALE), update prices, or manage store stock seamlessly.</p>
+            
+            <div class="form-grid">
+                <input type="text" id="pName" placeholder="Product Name">
+                <input type="text" id="pPrice" placeholder="New Price (e.g. Rs. 2499)">
+                <input type="text" id="pOldPrice" placeholder="Old Price / MRP (e.g. Rs. 3500)">
+                <input type="number" id="pStock" placeholder="Stock Quantity" min="1">
+                <select id="pCategory">
+                    <option value="Boys">Boys</option>
+                    <option value="Girls">Girls</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Home">Home</option>
+                </select>
+                <input type="text" id="pSaleTag" placeholder="Sale Tag (e.g. 30% OFF)">
+                <input type="text" id="pImg" placeholder="Image URL / Link">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="addNewProduct()">Add Product to Website</button>
+                <button class="btn" style="background:#64748b; color:white;" onclick="lockOwnerPanel()">Lock & Hide Panel</button>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <div class="section-title">Featured Products</div>
+            <div class="category-tabs">
+                <button class="cat-tab active" onclick="filterByCategory('All')">All Items</button>
+                <button class="cat-tab" onclick="filterByCategory('Boys')">Boys</button>
+                <button class="cat-tab" onclick="filterByCategory('Girls')">Girls</button>
+                <button class="cat-tab" onclick="filterByCategory('Baby')">Baby</button>
+                <button class="cat-tab" onclick="filterByCategory('Home')">Home</button>
+            </div>
+        </div>
+
+        <!-- PRODUCTS GRID -->
+        <div class="products-grid" id="productGrid"></div>
+
+    </div>
+
+    <script>
+        let currentFilter = 'All';
+        let isOwnerAuthenticated = false; // Hidden security state
+
+        // Initial sample items database
+        let products = [
+            { id: 1, name: "Boys Party Coat", price: "Rs. 3,499", oldPrice: "Rs. 4,500", stock: 10, category: "Boys", saleTag: "25% OFF", image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500" },
+            { id: 2, name: "Girls Summer Frock", price: "Rs. 2,199", oldPrice: "Rs. 3,000", stock: 6, category: "Girls", saleTag: "SALE", image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500" },
+            { id: 3, name: "Infant Sleepsuit", price: "Rs. 1,499", oldPrice: "", stock: 15, category: "Baby", saleTag: "", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" },
+            { id: 4, name: "Luxury Bed Sheets", price: "Rs. 4,500", oldPrice: "Rs. 6,000", stock: 5, category: "Home", saleTag: "HOT", image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500" }
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            let filtered = products.filter(p => {
+                if (currentFilter === 'All') return true;
+                return p.category === currentFilter;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--gray-text); padding: 40px; font-weight: 600;">No items found in this category!</p>`;
+                return;
+            }
+
+            filtered.forEach((p) => {
+                let actualIndex = products.findIndex(item => item.id === p.id);
+                
+                // Owner tools (edit/delete) will only display if authenticated with killer@786
+                let ownerToolsDisplay = isOwnerAuthenticated ? 'flex' : 'none';
+                let saleBadgeHtml = p.saleTag ? `<div class="sale-badge">${p.saleTag}</div>` : '';
+                let oldPriceHtml = p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : '';
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        ${saleBadgeHtml}
+                        <img src="${p.image}" alt="${p.name}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500'">
+                        <div class="product-info">
+                            <div class="product-title">${p.name}</div>
+                            <div class="price-box">
+                                <span class="product-price">${p.price}</span>
+                                ${oldPriceHtml}
+                            </div>
+                            <div class="stock-status">📦 Stock Left: ${p.stock}</div>
+                            <button class="btn btn-primary" style="width:100%; padding: 9px; font-size: 13px;" onclick="alert('Product added to shopping bag successfully!')">Buy Now</button>
+                            
+                            <!-- Hidden Master Control Tools for Owner -->
+                            <div class="owner-tools" style="display: ${ownerToolsDisplay};">
+                                <button class="btn-edit" onclick="editProduct(${actualIndex})">Edit Price/Sale</button>
+                                <button class="btn-delete" onclick="deleteProduct(${actualIndex})">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterByCategory(cat) {
+            currentFilter = cat;
+            let buttons = document.querySelectorAll('.cat-tab');
+            buttons.forEach(btn => {
+                if (btn.innerText.includes(cat) || (cat === 'All' && btn.innerText.includes('All'))) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderProducts();
+        }
+
+        // --- PASSWORD SECURITY SYSTEM (killer@786) ---
+        function openOwnerPanel() {
+            let pass = prompt("Enter Owner Password:");
+            if (pass === "killer@786") {
+                isOwnerAuthenticated = true;
+                document.getElementById('masterPanel').style.cssText = "display: block !important;";
+                alert("Master Control Unlocked Successfully!");
+                renderProducts();
+            } else if (pass !== null) {
+                alert("Incorrect Password! Access Denied.");
+            }
+        }
+
+        function lockOwnerPanel() {
+            isOwnerAuthenticated = false;
+            document.getElementById('masterPanel').style.cssText = "display: none !important;";
+            alert("Control panel locked. Website is back to customer view.");
+            renderProducts();
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById('pName').value;
+            const price = document.getElementById('pPrice').value;
+            const oldPrice = document.getElementById('pOldPrice').value;
+            const stock = document.getElementById('pStock').value;
+            const category = document.getElementById('pCategory').value;
+            const saleTag = document.getElementById('pSaleTag').value;
+            let img = document.getElementById('pImg').value.trim();
+
+            if(!name || !price || !stock) {
+                alert('Please enter Product Name, Price, and Stock!');
+                return;
+            }
+
+            if(!img) {
+                img = "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500";
+            }
+
+            products.unshift({
+                id: Date.now(),
+                name,
+                price,
+                oldPrice,
+                stock: parseInt(stock),
+                category,
+                saleTag,
+                image: img
+            });
+
+            // Clear inputs
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pOldPrice').value = '';
+            document.getElementById('pStock').value = '';
+            document.getElementById('pSaleTag').value = '';
+            document.getElementById('pImg').value = '';
+
+            alert('New product successfully published on website!');
+            filterByCategory(category);
+        }
+
+        function deleteProduct(index) {
+            if(confirm('Are you sure you want to delete this item?')) {
+                products.splice(index, 1);
+                renderProducts();
+            }
+        }
+
+        function editProduct(index) {
+            let p = products[index];
+            let newPrice = prompt("Enter new price:", p.price);
+            let newSale = prompt("Enter sale tag (e.g. 50% OFF, SALE, or leave blank):", p.saleTag);
+            let newStock = prompt("Enter stock quantity:", p.stock);
+
+            if (newPrice !== null) p.price = newPrice;
+            if (newSale !== null) p.saleTag = newSale;
+            if (newStock !== null) p.stock = parseInt(newStock) || p.stock;
+
+            alert("Product updated successfully!");
+            renderProducts();
+        }
+
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByClassName('product-title')[0].innerText.toLowerCase();
+                cards[i].style.display = title.includes(query) ? "block" : "none";
+            }
+        }
+
+        // Initial Load (Clean Customer View)
+        renderProducts();
+    </script>
+</body>
+</html>
