@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Clothes - Advanced Store</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; color: #222; }
+        
+        header { background: #ffffff; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 26px; font-weight: 900; background: linear-gradient(45deg, #007bff, #6610f2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; }
+        .admin-toggle { background: linear-gradient(135deg, #ff5722, #f44336); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(255,87,34,0.3); transition: 0.3s; }
+        .admin-toggle:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255,87,34,0.4); }
+
+        .container { max-width: 1250px; margin: 30px auto; padding: 0 20px; }
+
+        .categories { display: flex; gap: 12px; overflow-x: auto; padding: 10px 0; margin-bottom: 30px; scrollbar-width: none; }
+        .categories::-webkit-scrollbar { display: none; }
+        .cat-btn { background: #fff; border: 1px solid #e0e0e0; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: 600; color: #555; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .cat-btn.active, .cat-btn:hover { background: #007bff; color: white; border-color: #007bff; box-shadow: 0 4px 12px rgba(0,123,255,0.3); }
+
+        #admin-panel { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); margin-bottom: 35px; display: none; border-top: 5px solid #ff5722; }
+        #admin-panel h3 { margin-bottom: 20px; color: #ff5722; font-size: 20px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #444; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: #fafafa; }
+        .form-group input:focus, .form-group select:focus { border-color: #007bff; outline: none; background: #fff; }
+        .btn-submit { background: #28a745; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn-submit:hover { background: #218838; }
+
+        .section-title { font-size: 24px; font-weight: 800; margin-bottom: 25px; color: #111; position: relative; padding-left: 15px; }
+        .section-title::before { content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 4px; background: #007bff; border-radius: 2px; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); padding: 15px; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #eee; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        
+        .badge { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); color: white; padding: 5px 10px; font-size: 11px; font-weight: bold; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .img-container { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; background: #f1f1f1; margin-bottom: 12px; }
+        .product-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .product-card h3 { font-size: 18px; margin-bottom: 6px; font-weight: 700; color: #222; }
+        .price { color: #e53935; font-weight: 800; font-size: 19px; margin-bottom: 6px; }
+        .stock-info { font-size: 13px; color: #666; margin-bottom: 6px; background: #fdfdfd; padding: 4px 8px; border-radius: 4px; border: 1px solid #f0f0f0; }
+        .specs { font-size: 12px; background: #f4f8fb; padding: 8px; border-radius: 6px; color: #333; margin-bottom: 12px; border-left: 3px solid #007bff; }
+        
+        /* Advanced Action Buttons inside Card */
+        .card-actions { display: flex; gap: 8px; }
+        .btn-sell { background: #ff9800; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; font-size: 12px; transition: 0.2s; }
+        .btn-sell:hover { background: #f57c00; }
+        .btn-delete { background: #e53935; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s; }
+        .btn-delete:hover { background: #c62828; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Sky Clothes</a>
+        <button class="admin-toggle" onclick="toggleAdminPanel()">+ Add New Product</button>
+    </header>
+
+    <div class="container">
+        <!-- Admin Panel -->
+        <div id="admin-panel">
+            <h3>✨ Add New Item (Inventory & Stock System)</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Product Name:</label>
+                    <input type="text" id="p-name" placeholder="e.g. Luxury Watch / Dress">
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select id="p-cat">
+                        <option value="Clothes">Clothes & Dresses</option>
+                        <option value="Watches">Watches</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Cosmetics">Cosmetics & Perfume</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Toys">Toys & Others</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Price (Rs.):</label>
+                    <input type="number" id="p-price" placeholder="2499">
+                </div>
+                <div class="form-group">
+                    <label>Total Stock (e.g., 10):</label>
+                    <input type="number" id="p-stock" placeholder="10">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Specifications (Brand, Material, Color):</label>
+                <input type="text" id="p-specs" placeholder="e.g. Pure Cotton, Water Resistant">
+            </div>
+            <div class="form-group">
+                <label>Image File Name:</label>
+                <input type="text" id="p-img" placeholder="images.jpeg">
+            </div>
+            <button class="btn-submit" onclick="addProduct()">Publish to Store</button>
+        </div>
+
+        <!-- Categories Filter Bar -->
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('All', this)">🔥 All Products</button>
+            <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 Clothes</button>
+            <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ Watches</button>
+            <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 Shoes</button>
+            <button class="cat-btn" onclick="filterCategory('Cosmetics', this)">💄 Cosmetics</button>
+            <button class="cat-btn" onclick="filterCategory('Electronics', this)">💻 Electronics</button>
+            <button class="cat-btn" onclick="filterCategory('Toys', this)">🧸 Toys</button>
+        </div>
+
+        <div class="section-title">Store Inventory & Collection</div>
+        <div class="product-grid" id="product-container">
+            <!-- Sample Product with Live Stock Calculation -->
+            <div class="product-card" data-category="Clothes">
+                <span class="badge">Clothes</span>
+                <div class="img-container">
+                    <img src="images.jpeg" alt="Shirt">
+                </div>
+                <h3>Cloud Comfort T-Shirt</h3>
+                <div class="price">Rs. 1,499</div>
+                <div class="stock-info">📦 Available: <b class="stock-count">8</b> | Sold: <b class="sold-count">2</b></div>
+                <div class="specs">✨ Specs: 100% Breathable Cotton</div>
+                <div class="card-actions">
+                    <button class="btn-sell" onclick="sellItem(this)">Sell 1 (-1 Stock)</button>
+                    <button class="btn-delete" onclick="deleteItem(this)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function addProduct() {
+            const name = document.getElementById('p-name').value;
+            const cat = document.getElementById('p-cat').value;
+            const price = document.getElementById('p-price').value;
+            let stock = parseInt(document.getElementById('p-stock').value) || 10;
+            const specs = document.getElementById('p-specs').value;
+            const img = document.getElementById('p-img').value || 'images.jpeg';
+
+            if(!name || !price) {
+                alert("Please enter product name and price!");
+                return;
+            }
+
+            const container = document.getElementById('product-container');
+            
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.setAttribute('data-category', cat);
+            card.innerHTML = `
+                <span class="badge">${cat}</span>
+                <div class="img-container">
+                    <img src="${img}" alt="${name}">
+                </div>
+                <h3>${name}</h3>
+                <div class="price">Rs. ${price}</div>
+                <div class="stock-info">📦 Available: <b class="stock-count">${stock}</b> | Sold: <b class="sold-count">0</b></div>
+                <div class="specs">✨ Specs: ${specs || 'High quality standard item'}</div>
+                <div class="card-actions">
+                    <button class="btn-sell" onclick="sellItem(this)">Sell 1 (-1 Stock)</button>
+                    <button class="btn-delete" onclick="deleteItem(this)">Delete</button>
+                </div>
+            `;
+            
+            container.prepend(card);
+
+            // Clear form
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-price').value = '';
+            document.getElementById('p-stock').value = '';
+            document.getElementById('p-specs').value = '';
+            document.getElementById('p-img').value = '';
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+
+        // Live Calculation: Sell button reduces stock and increases sold count
+        function sellItem(button) {
+            const card = button.closest('.product-card');
+            const stockElement = card.querySelector('.stock-count');
+            const soldElement = card.querySelector('.sold-count');
+            
+            let stock = parseInt(stockElement.textContent);
+            let sold = parseInt(soldElement.textContent);
+
+            if(stock > 0) {
+                stock -= 1;
+                sold += 1;
+                stockElement.textContent = stock;
+                soldElement.textContent = sold;
+            } else {
+                alert("Sorry, this item is out of stock!");
+            }
+        }
+
+        // Delete item from store
+        function deleteItem(button) {
+            if(confirm("Are you sure you want to delete this item?")) {
+                const card = button.closest('.product-card');
+                card.remove();
+            }
+        }
+
+        function filterCategory(category, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if(category === 'All' || cardCat === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
