@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sKyWoVeN cLoThiNG</title>
+    <style>
+        /* BASE & RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #fff; color: #111; overflow-x: hidden; }
+
+        /* BRAND HEADER */
+        .brand-header { text-align: center; padding: 20px; font-size: 30px; font-weight: bold; letter-spacing: 3px; font-family: 'Times New Roman', serif; text-transform: uppercase; }
+
+        /* STICKY NAVIGATION BAR */
+        .navbar { display: flex; justify-content: center; background: #fff; border-top: 1px solid #eee; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; }
+        .nav-item { position: relative; }
+        .nav-item > a { display: block; color: #111; text-decoration: none; font-weight: bold; font-size: 11px; text-transform: uppercase; padding: 15px 14px; letter-spacing: 1px; }
+        .nav-item:hover > a { color: #d4af37; background: #fafafa; }
+
+        /* MEGA MENU DROPDOWN */
+        .mega-menu {
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 900px;
+            background-color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #eee;
+            padding: 30px; z-index: 999; justify-content: space-between; align-items: flex-start;
+        }
+        .nav-item:hover .mega-menu { display: flex; }
+        
+        .menu-columns { display: flex; gap: 40px; flex-grow: 1; }
+        .column { display: flex; flex-direction: column; gap: 8px; min-width: 140px; }
+        .column h3 { font-size: 12px; color: #111; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .column a { color: #555; text-decoration: none; font-size: 12px; }
+        .column a:hover { color: #000; text-decoration: underline; }
+
+        /* SUITS GRID IN MEGA MENU (Without Face Images) */
+        .suits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 5px; }
+        .suit-card { text-align: center; width: 80px; }
+        .suit-card img { width: 100%; height: 85px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+        .suit-card span { display: block; font-size: 10px; color: #333; margin-top: 3px; font-weight: bold; text-transform: uppercase; }
+
+        /* PROMO CARDS */
+        .promo-container { display: flex; flex-direction: column; gap: 12px; }
+        .promo-box { width: 150px; height: 90px; background: #111; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 4px; position: relative; text-align: center; padding: 10px; }
+        .promo-box span { font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .promo-box .badge { position: absolute; top: 8px; right: 8px; background: #d4af37; color: #000; font-size: 8px; padding: 2px 5px; font-weight: bold; border-radius: 3px; }
+
+        /* SCROLL ANIMATION CLASS (REVEAL EFFECT) */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* HERO & FULL BANNERS */
+        .full-banner {
+            height: 75vh; width: 100%; background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            margin-bottom: 40px; position: relative;
+        }
+        .full-banner h1 { font-size: 42px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; font-family: 'Times New Roman', serif; margin-bottom: 10px; }
+        .full-banner p { font-size: 14px; letter-spacing: 1px; }
+
+        /* SECTION TITLES */
+        .section-title { text-align: center; font-size: 26px; font-weight: normal; margin: 60px 0 25px; font-family: 'Times New Roman', serif; letter-spacing: 1px; }
+
+        /* STYLE & INSPIRATION GRID (4 COLUMNS) */
+        .inspiration-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .grid-card { text-align: left; }
+        .grid-card img { width: 100%; height: 380px; object-fit: cover; border-radius: 4px; transition: transform 0.4s ease; }
+        .grid-card:hover img { transform: scale(1.02); }
+        .grid-card span { font-size: 11px; color: #777; font-weight: bold; letter-spacing: 1px; display: block; margin-top: 10px; }
+
+        /* BRANDS IN FOCUS TILES (8 COLUMNS) */
+        .brands-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .brand-tile { position: relative; height: 120px; border-radius: 4px; overflow: hidden; cursor: pointer; }
+        .brand-tile img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65); transition: filter 0.3s ease; }
+        .brand-tile:hover img { filter: brightness(0.85); }
+        .brand-tile span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 11px; text-align: center; padding: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* NEWSLETTER SECTION */
+        .newsletter { text-align: center; padding: 70px 20px; background-color: #f9f9f9; border-top: 1px solid #eee; }
+        .newsletter h3 { font-size: 18px; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+        .newsletter p { color: #666; font-size: 13px; margin-bottom: 25px; }
+        .newsletter input { padding: 12px 15px; width: 320px; border: 1px solid #ccc; font-size: 12px; outline: none; }
+        .newsletter button { padding: 12px 20px; background: #111; color: #fff; border: none; font-size: 12px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; }
+        .newsletter button:hover { background: #d4af37; color: #000; }
+
+        /* DARK FOOTER */
+        footer { background-color: #111; color: #aaa; padding: 60px 20px 30px; font-size: 12px; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: #fff; margin-bottom: 18px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        .footer-col a { display: block; color: #aaa; text-decoration: none; margin-bottom: 10px; }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom { text-align: center; border-top: 1px solid #222; padding-top: 20px; color: #555; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+    <!-- BRAND HEADER -->
+    <div class="brand-header">sKyWoVeN cLoThiNG</div>
+
+    <!-- MAIN NAVBAR WITH MEGA MENU -->
+    <nav class="navbar">
+        <div class="nav-item"><a href="#">Women</a></div>
+        <div class="nav-item"><a href="#">Men</a></div>
+        <div class="nav-item"><a href="#">Boys</a></div>
+        
+        <!-- GIRLS MENU (MEGA MENU INSIDE) -->
+        <div class="nav-item">
+            <a href="#">Girls</a>
+            <div class="mega-menu">
+                <div class="menu-columns">
+                    <div class="column">
+                        <h3>Fashion Brands</h3>
+                        <a href="#">A-Z Brands</a><a href="#">Boden</a><a href="#">BOSS</a>
+                        <a href="#">Calvin Klein</a><a href="#">GAP</a><a href="#">Joules</a>
+                    </div>
+                    <div class="column">
+                        <h3>Sports Brands</h3>
+                        <a href="#">Nike</a><a href="#">Adidas</a><a href="#">Berghaus</a>
+                        <a href="#">Converse</a><a href="#">Columbia</a><a href="#">Puma</a>
+                    </div>
+                    <div class="column">
+                        <h3>Suits Collection</h3>
+                        <div class="suits-grid">
+                            <div class="suit-card"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=150" alt="Men"><span>Men</span></div>
+                            <div class="suit-card"><img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=150" alt="Women"><span>Women</span></div>
+                            <div class="suit-card"><img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=150" alt="Boy"><span>Boy</span></div>
+                            <div class="suit-card"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=150" alt="Girl"><span>Girl</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="promo-container">
+                    <div class="promo-box"><div class="badge">NEW</div><span>Women's Clearance</span></div>
+                    <div class="promo-box"><div class="badge">NEW</div><span>Men's New In</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-item"><a href="#">Home</a></div>
+        <div class="nav-item"><a href="#">School</a></div>
+        <div class="nav-item"><a href="#">Baby</a></div>
+        <div class="nav-item"><a href="#">Furniture</a></div>
+        <div class="nav-item"><a href="#">Brands</a></div>
+        <div class="nav-item"><a href="#">Gifts</a></div>
+    </nav>
+
+    <!-- SECTION 1: MAIN HERO BANNER (Workwear Theme) -->
+    <div class="full-banner reveal" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=1600');">
+        <h1>The Art of Smart Workwear</h1>
+        <p>Tailored perfection for every occasion.</p>
+    </div>
+
+    <!-- SECTION 2: SLEEP SANCTUARY BANNER -->
+    <div class="full-banner reveal" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600');">
+        <h1>Sleep Sanctuary</h1>
+        <p>Discover ultimate comfort and luxury bedding.</p>
+    </div>
+
+    <!-- SECTION 3: STYLE & INSPIRATION (Grid Layout) -->
+    <div class="reveal">
+        <h2 class="section-title">Style & Inspiration</h2>
+        <div class="inspiration-grid">
+            <div class="grid-card"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600"><span>TRENDING NOW</span></div>
+            <div class="grid-card"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600"><span>HOME DECOR</span></div>
+            <div class="grid-card"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600"><span>NEW SEASON</span></div>
+            <div class="grid-card"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600"><span>ELEGANCE LOOKS</span></div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: BRANDS IN FOCUS -->
+    <div class="reveal">
+        <h2 class="section-title">Brands In Focus</h2>
+        <div class="brands-grid">
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300"><span>NIKE</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=300"><span>ADIDAS</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300"><span>PUMA</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=300"><span>GAP</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=300"><span>SKECHERS</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=300"><span>CONVERSE</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300"><span>NEW BALANCE</span></div>
+            <div class="brand-tile"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=300"><span>BOSS</span></div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: NEWSLETTER -->
+    <div class="newsletter reveal">
+        <h3>Be In The Know</h3>
+        <p>Keep up to date with the latest news, exclusive offers, and store events.</p>
+        <input type="email" placeholder="Enter your email address">
+        <button>Subscribe</button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Help & Information</h4>
+                <a href="#">Track Order</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Shopping With Us</h4>
+                <a href="#">Gift Cards</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>Departments</h4>
+                <a href="#">Womenswear</a>
+                <a href="#">Menswear</a>
+                <a href="#">Kids & Baby</a>
+                <a href="#">Homeware</a>
+            </div>
+            <div class="footer-col">
+                <h4>About Us</h4>
+                <a href="#">Store Locator</a>
+                <a href="#">Careers</a>
+                <a href="#">Corporate Responsibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 sKyWoVeN cLoThiNG. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR AUTOMATIC SCROLL ANIMATION -->
+    <script>
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        // Run function on scroll and on initial load
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>
