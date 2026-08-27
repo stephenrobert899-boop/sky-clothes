@@ -1,10 +1,256 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sky Clothes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skywoven Clothing - Official Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #fff;
+            color: #222;
+        }
+        .top-bar {
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            font-size: 13px;
+            padding: 8px 0;
+            letter-spacing: 0.5px;
+        }
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #111;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .search-box {
+            flex: 1;
+            max-width: 450px;
+            margin: 0 40px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #f7f7f7;
+            outline: none;
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-icons a {
+            text-decoration: none;
+            color: #111;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .checkout-btn {
+            background-color: #111;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        nav {
+            border-bottom: 1px solid #eaeaea;
+            background-color: #fff;
+        }
+        .nav-links {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 12px 0;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+        .shop-now-btn {
+            background-color: #fff;
+            color: #111;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+        .section-heading {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .product-image {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f2f2f2;
+        }
+        .product-info {
+            padding: 15px 5px;
+        }
+        .product-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: #b12704;
+        }
+        footer {
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Sky Clothes</h1>
-    <p>Your Professional E-Commerce Store</p>
+
+    <div class="top-bar">
+        Free Delivery on Orders Above Rs. 3,000 | Shop the New Season Now
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Skywoven</a>
+            <div class="search-box">
+                <input type="text" placeholder="Search for anything here...">
+            </div>
+            <div class="header-icons">
+                <a href="#">❤️ Wishlist</a>
+                <a href="#">👤 Account</a>
+                <a href="#">🛍️ Bag</a>
+                <a href="#" class="checkout-btn">Checkout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#" style="color: #0071e3;">Women</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Boys</a></li>
+            <li><a href="#">Girls</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Winter Collection</a></li>
+            <li><a href="#" style="color: #b12704;">Clearance</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Ready For New Season</h1>
+        <p>Explore the ultimate collection designed for your everyday elegance.</p>
+        <a href="#shop" class="shop-now-btn">Shop Now</a>
+    </section>
+
+    <div class="container" id="shop">
+        <h2 class="section-heading">Trending Arrivals</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="product-info">
+                    <div class="product-title">Classic Urban Oversized Tee</div>
+                    <div class="product-price">Rs. 2,899</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="product-info">
+                    <div class="product-title">Premium Denim Jacket</div>
+                    <div class="product-price">Rs. 6,499</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="product-info">
+                    <div class="product-title">Minimalist Fleece Hoodie</div>
+                    <div class="product-price">Rs. 4,799</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Skywoven Clothing. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
