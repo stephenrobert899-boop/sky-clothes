@@ -3,254 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skywoven Clothing - Official Store</title>
+    <title>SkyWoven-Clothes</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --primary-color: #1a1a1a;
+            --accent-color: #c5a059;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
         }
-        body {
-            background-color: #fff;
-            color: #222;
-        }
-        .top-bar {
-            background-color: #111;
-            color: #fff;
-            text-align: center;
-            font-size: 13px;
-            padding: 8px 0;
-            letter-spacing: 0.5px;
-        }
-        header {
-            background-color: #fff;
-            border-bottom: 1px solid #eaeaea;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #111;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        .search-box {
-            flex: 1;
-            max-width: 450px;
-            margin: 0 40px;
-        }
-        .search-box input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            background-color: #f7f7f7;
-            outline: none;
-        }
-        .header-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .header-icons a {
-            text-decoration: none;
-            color: #111;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .checkout-btn {
-            background-color: #111;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        nav {
-            border-bottom: 1px solid #eaeaea;
-            background-color: #fff;
-        }
-        .nav-links {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 12px 0;
-            list-style: none;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-        }
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 25px;
-        }
-        .shop-now-btn {
-            background-color: #fff;
-            color: #111;
-            padding: 12px 30px;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-        .container {
-            max-width: 1300px;
-            margin: 50px auto;
-            padding: 0 30px;
-        }
-        .section-heading {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .product-card {
-            background: #fff;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .product-image {
-            height: 350px;
-            background-size: cover;
-            background-position: center;
-            background-color: #f2f2f2;
-        }
-        .product-info {
-            padding: 15px 5px;
-        }
-        .product-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .product-price {
-            font-size: 15px;
-            font-weight: 700;
-            color: #b12704;
-        }
-        footer {
-            background-color: #111;
-            color: #fff;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-            font-size: 14px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        header { background: var(--primary-color); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; color: var(--accent-color); }
+        .nav-icons { display: flex; gap: 15px; font-size: 18px; cursor: pointer; }
+        
+        .search-container { padding: 15px 20px; background: #fff; display: flex; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .search-container input { width: 100%; max-width: 600px; padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 25px; outline: none; font-size: 15px; }
+        
+        .categories { display: flex; gap: 10px; overflow-x: auto; padding: 10px 20px; background: #fff; white-space: nowrap; border-bottom: 1px solid var(--border-color); }
+        .cat-btn { background: none; border: 1px solid var(--border-color); padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .cat-btn.active, .cat-btn:hover { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+        
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        
+        .product-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        .product-img { width: 100%; height: 260px; object-fit: cover; background: #eee; }
+        .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+        .product-price { font-size: 15px; color: var(--accent-color); font-weight: bold; margin-bottom: 8px; }
+        .product-rating { font-size: 13px; color: #f59e0b; margin-bottom: 10px; }
+        
+        .btn-group { display: flex; gap: 8px; margin-top: auto; }
+        .btn { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: center; }
+        .btn-cart { background: var(--primary-color); color: #fff; }
+        .btn-cart:hover { background: #333; }
+        .btn-whatsapp { background: #25d366; color: #fff; }
+        .btn-whatsapp:hover { background: #20ba5a; }
+
+        .cart-modal { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: #fff; box-shadow: -2px 0 5px rgba(0,0,0,0.1); z-index: 2000; transition: 0.3s; display: flex; flex-direction: column; padding: 20px; }
+        .cart-modal.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: bold; font-size: 18px; }
+        .close-cart { cursor: pointer; font-size: 20px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; padding: 15px 0; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #f1f1f1; padding-bottom: 8px; font-size: 14px; }
+        .checkout-box { border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .checkout-box input { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        Free Delivery on Orders Above Rs. 3,000 | Shop the New Season Now
-    </div>
-
     <header>
-        <div class="header-container">
-            <a href="#" class="logo">Skywoven</a>
-            <div class="search-box">
-                <input type="text" placeholder="Search for anything here...">
-            </div>
-            <div class="header-icons">
-                <a href="#">❤️ Wishlist</a>
-                <a href="#">👤 Account</a>
-                <a href="#">🛍️ Bag</a>
-                <a href="#" class="checkout-btn">Checkout</a>
-            </div>
-        </div>
+        <div class="logo">SkyWoven-Clothes</div>
+        <div class="nav-icons" onclick="toggleCart()">🛒 <span id="cart-count" style="font-size: 14px;">0</span></div>
     </header>
 
-    <nav>
-        <ul class="nav-links">
-            <li><a href="#" style="color: #0071e3;">Women</a></li>
-            <li><a href="#">Men</a></li>
-            <li><a href="#">Boys</a></li>
-            <li><a href="#">Girls</a></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Winter Collection</a></li>
-            <li><a href="#" style="color: #b12704;">Clearance</a></li>
-        </ul>
-    </nav>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for clothes, styles..." onkeyup="filterProducts()">
+    </div>
 
-    <section class="hero">
-        <h1>Ready For New Season</h1>
-        <p>Explore the ultimate collection designed for your everyday elegance.</p>
-        <a href="#shop" class="shop-now-btn">Shop Now</a>
-    </section>
+    <div class="categories" id="categoryContainer">
+        <button class="cat-btn active" onclick="filterCategory('All')">All</button>
+        <button class="cat-btn" onclick="filterCategory('Men')">Men</button>
+        <button class="cat-btn" onclick="filterCategory('Women')">Women</button>
+        <button class="cat-btn" onclick="filterCategory('Boys')">Boys</button>
+        <button class="cat-btn" onclick="filterCategory('Girls')">Girls</button>
+        <button class="cat-btn" onclick="filterCategory('Winter')">Winter</button>
+    </div>
 
-    <div class="container" id="shop">
-        <h2 class="section-heading">Trending Arrivals</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="product-info">
-                    <div class="product-title">Classic Urban Oversized Tee</div>
-                    <div class="product-price">Rs. 2,899</div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="product-info">
-                    <div class="product-title">Premium Denim Jacket</div>
-                    <div class="product-price">Rs. 6,499</div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="product-info">
-                    <div class="product-title">Minimalist Fleece Hoodie</div>
-                    <div class="product-price">Rs. 4,799</div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="product-grid" id="productGrid">
+            <!-- Products will load here automatically -->
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Skywoven Clothing. All rights reserved.</p>
-    </footer>
+    <!-- Shopping Cart / Checkout Drawer -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <span>Your Shopping Bag</span>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <p style="color: #775; text-align: center; margin-top: 20px;">Bag is empty</p>
+        </div>
+        <div class="checkout-box">
+            <input type="text" id="custName" placeholder="Your Name">
+            <input type="text" id="custPhone" placeholder="Phone Number">
+            <input type="text" id="custAddress" placeholder="Delivery Address">
+            <button class="btn btn-whatsapp" style="width: 100%; padding: 10px;" onclick="sendWhatsAppOrder()">Send Order via WhatsApp</button>
+        </div>
+    </div>
 
+    <script>
+        let products = JSON.parse(localStorage.getItem('skywoven_products')) || [
+            { id: 1, name: "Classic Men Jacket", price: "PKR 4,500", category: "Men", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500", rating: "⭐ 4.8 (12 Reviews)" },
+            { id: 2, name: "Elegant Women Kurti", price: "PKR 2,800", category: "Women", image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500", rating: "⭐ 5.0 (24 Reviews)" }
+        ];
+
+        let cart = [];
+
+        function renderProducts(list = products) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            if(list.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777;">No products available.</p>';
+                return;
+            }
+            list.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.image}" class="product-img" alt="${p.name}">
+                        <div class="product-info">
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-price">${p.price}</div>
+                            <div class="product-rating">${p.rating || '⭐ 5.0 (New)'}</div>
+                            <div class="btn-group">
+                                <button class="btn btn-cart" onclick="addToCart('${p.name}', '${p.price}')">Add to Bag</button>
+                                <button class="btn btn-whatsapp" onclick="directBuy('${p.name}', '${p.price}')">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            if(cat === 'All') {
+                renderProducts(products);
+            } else {
+                let filtered = products.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+                renderProducts(filtered);
+            }
+        }
+
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('open');
+        }
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            document.getElementById('cart-count').innerText = cart.length;
+            updateCartUI();
+            alert(name + " added to bag!");
+        }
+
+        function updateCartUI() {
+            let container = document.getElementById('cartItemsContainer');
+            if(cart.length === 0) {
+                container.innerHTML = '<p style="color: #777; text-align: center; margin-top: 20px;">Bag is empty</p>';
+                return;
+            }
+            container.innerHTML = '';
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span><b>${item.price}</b></span>
+                    </div>
+                `;
+            });
+        }
+
+        function directBuy(name, price) {
+            let text = `Hello SkyWoven-Clothes, I want to buy this item:\n*Product:* ${name}\n*Price:* ${price}`;
+            let encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/923000000000?text=${encoded}`, '_blank'); // Apna WhatsApp number yahan daal sakte hain
+        }
+
+        function sendWhatsAppOrder() {
+            let name = document.getElementById('custName').value;
+            let phone = document.getElementById('custPhone').value;
+            let address = document.getElementById('custAddress').value;
+
+            if(!name || !phone || !address || cart.length === 0) {
+                alert("Please fill all details and add items to your bag!");
+                return;
+            }
+
+            let orderText = `New Order Placed at SkyWoven-Clothes!\n\n*Customer Name:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}\n\n*Items:* \n`;
+            cart.forEach(i => { orderText += `- ${i.name} (${i.price})\n`; });
+
+            let encoded = encodeURIComponent(orderText);
+            window.open(`https://wa.me/923000000000?text=${encoded}`, '_blank');
+        }
+
+        renderProducts();
+    </script>
 </body>
 </html>
