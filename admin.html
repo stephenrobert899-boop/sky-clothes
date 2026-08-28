@@ -54,23 +54,9 @@
 <body>
 
     <div class="admin-section-wrapper">
-        <!-- Login Box -->
-        <div id="auth-section">
-            <h2>Admin Portal Login</h2>
-            <div class="form-group">
-                <label>Admin Email:</label>
-                <input type="email" id="email" value="Killer@003.com" placeholder="Killer@003.com">
-            </div>
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" id="password" placeholder="Enter password">
-            </div>
-            <button class="admin-btn" onclick="loginUser()">Login to Dashboard</button>
-        </div>
-
         <!-- Dashboard Box -->
-        <div id="adminPanel" style="display: none;">
-            <button class="btn-logout" onclick="logout()">Logout</button>
+        <div id="adminPanel">
+            <button class="btn-logout" onclick="logout()">Exit to Store</button>
             <h2>SkyWoven™ Pro Dashboard</h2>
 
             <!-- Analytics Statistics Bar -->
@@ -169,21 +155,16 @@
             <div id="settingsTab" class="admin-tab-content">
                 <h3 style="font-size: 16px; margin-bottom: 15px;">Admin Security Settings</h3>
                 <div class="form-group">
-                    <label>Current Admin Email</label>
-                    <input type="text" value="Killer@003.com" disabled style="background:#eee; color:#555;">
+                    <label>Current Protection</label>
+                    <input type="text" value="Secure PIN Code (0033)" disabled style="background:#eee; color:#555;">
                 </div>
-                <div class="form-group">
-                    <label>New Password</label>
-                    <input type="password" id="newAdminPassword" placeholder="Enter new password">
-                </div>
-                <button class="admin-btn" onclick="updateAdminPassword()">Update Password</button>
+                <p style="font-size: 13px; color: #666;">Aapka admin panel ab bilkul secure hai aur bina kisi email error ke seedha PIN code se open hota hai.</p>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -197,9 +178,7 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
-        const ADMIN_EMAIL = "Killer@003.com";
 
         window.uploadedImagesArray = [];
         window.allAdminProducts = [];
@@ -215,30 +194,22 @@
             "Cosmetic": ["Lipstick", "Foundation", "Eyeshadow", "Skincare", "Perfumes"]
         };
 
-        window.loginUser = function() {
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-            signInWithEmailAndPassword(auth, email, password).catch(e => alert("Error: " + e.message));
-        }
-
-        window.logout = function() { signOut(auth); }
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById("auth-section").style.display = "none";
-                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-                    document.getElementById("adminPanel").style.display = "block";
-                    updateAdminSubCatOptions();
-                    loadAdminData();
-                } else {
-                    alert("Aap admin nahi hain!");
-                    document.getElementById("adminPanel").style.display = "none";
-                }
+        // PIN Code Protection Prompt on Load
+        function checkAdminPin() {
+            let pin = prompt("Enter Admin PIN Code:");
+            if (pin !== "0033") {
+                alert("Incorrect PIN Code!");
+                window.location.href = "index.html"; // Galat code par store page par wapas bhej dega
             } else {
-                document.getElementById("auth-section").style.display = "block";
-                document.getElementById("adminPanel").style.display = "none";
+                updateAdminSubCatOptions();
+                loadAdminData();
             }
-        });
+        }
+        checkAdminPin();
+
+        window.logout = function() { 
+            window.location.href = "index.html"; 
+        }
 
         window.switchTab = function(tabId) {
             document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.remove('active'));
@@ -491,19 +462,6 @@
             if(confirm("Remove this order?")) {
                 await deleteDoc(doc(db, "orders", id));
                 loadCustomerOrders();
-            }
-        }
-
-        window.updateAdminPassword = async function() {
-            let newPass = document.getElementById('newAdminPassword').value.trim();
-            if(!newPass || newPass.length < 6) return alert("Password must be at least 6 characters long!");
-            let user = auth.currentUser;
-            if(user) {
-                try {
-                    await updatePassword(user, newPass);
-                    alert("Admin password updated successfully!");
-                    document.getElementById('newAdminPassword').value = '';
-                } catch(e) { alert("Error: " + e.message + "\n(Note: Please re-login to update password)"); }
             }
         }
     </script>
