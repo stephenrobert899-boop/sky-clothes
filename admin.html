@@ -3,130 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyWoven-Clothes Admin Panel</title>
+    <title>Admin Portal - SkyWoven™</title>
     <style>
         :root {
-            --primary: #1a1a1a;
-            --accent: #c5a059;
-            --bg: #f4f6f8;
+            --bg-color: #fcfbf9;
+            --text-color: #2c2c2c;
+            --primary-color: #111111;
+            --accent-color: #b89753;
+            --border-color: #eae6df;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background: var(--bg); padding: 20px; }
-        .admin-container { max-width: 600px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { margin-bottom: 20px; color: var(--primary); text-align: center; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
-        .btn-add { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; }
-        .btn-add:hover { background: #b08d4b; }
-        .item-list { margin-top: 30px; }
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
-        .btn-del { background: #e74c3c; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 30px; display: flex; justify-content: center; }
+
+        .admin-box { width: 100%; max-width: 600px; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 5px solid var(--accent-color); }
+        h2 { margin-bottom: 20px; color: var(--primary-color); text-align: center; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 13px; color: #444; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; background: #faf8f5; outline: none; }
+        .btn { background: var(--accent-color); color: #fff; border: none; padding: 14px; width: 100%; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .btn:hover { background: #a48243; }
+        .btn-logout { background: #e74c3c; padding: 8px 16px; border-radius: 6px; color: #fff; border: none; cursor: pointer; float: right; margin-bottom: 15px; font-weight: bold; }
+        
+        .item-list { margin-top: 35px; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; font-size: 13px; }
+        .btn-del { background: #e74c3c; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="admin-container" id="loginBox" style="max-width: 350px; margin-top: 100px;">
-        <h2>Admin Login</h2>
+    <div class="admin-box" id="auth-section">
+        <h2>Admin Portal Login</h2>
         <div class="form-group">
-            <label>Enter Secret Password:</label>
-            <input type="password" id="adminPass" placeholder="Enter your password">
+            <label>Admin Email:</label>
+            <input type="email" id="email" value="Killer@003.com" placeholder="Killer@003.com">
         </div>
-        <button class="btn-add" onclick="checkLogin()">Login</button>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+        <button class="btn" onclick="loginUser()">Login to Dashboard</button>
     </div>
 
-    <div class="admin-container" id="adminPanel" style="display: none;">
-        <h2>SkyWoven-Clothes Dashboard</h2>
-        
+    <div class="admin-box" id="adminPanel" style="display: none;">
+        <button class="btn-logout" onclick="logout()">Logout</button>
+        <h2>Store Management Dashboard</h2>
+
+        <h3 style="font-size: 16px; margin-bottom: 15px;">🛍️ Add New Product to Firebase</h3>
         <div class="form-group">
             <label>Product Name</label>
-            <input type="text" id="pName" placeholder="e.g. Winter Hoodie">
+            <input type="text" id="pName" placeholder="e.g. Royal Kurti">
         </div>
         <div class="form-group">
-            <label>Price (e.g. PKR 3,500)</label>
-            <input type="text" id="pPrice" placeholder="PKR 3,500">
+            <label>Price in PKR (Numeric)</label>
+            <input type="number" id="pPriceValue" placeholder="5500">
+        </div>
+        <div class="form-group">
+            <label>Stock Quantity</label>
+            <input type="number" id="pStock" value="5">
+        </div>
+        <div class="form-group">
+            <label>Discount Tag (Optional)</label>
+            <input type="text" id="pDiscount" placeholder="e.g. 20% OFF">
         </div>
         <div class="form-group">
             <label>Category</label>
             <select id="pCategory">
                 <option value="Men">Men</option>
                 <option value="Women">Women</option>
-                <option value="Boys">Boys</option>
                 <option value="Girls">Girls</option>
-                <option value="Winter">Winter</option>
             </select>
         </div>
         <div class="form-group">
-            <label>Image URL (Direct link of picture)</label>
-            <input type="text" id="pImage" placeholder="Paste image link here">
+            <label>Image Direct Link (URL)</label>
+            <input type="text" id="pImage" placeholder="Paste image link">
         </div>
 
-        <button class="btn-add" onclick="addProduct()">Upload Product</button>
+        <button class="btn" onclick="addProductToFirebase()">Upload Product</button>
 
         <div class="item-list">
-            <h3>Manage Products</h3>
+            <h3>Manage Database Products</h3>
             <div id="manageList" style="margin-top: 10px;"></div>
         </div>
     </div>
 
-    <script>
-        function checkLogin() {
-            let pass = document.getElementById('adminPass').value;
-            // Yahan aapka naya password set kar diya gaya hai
-            if(pass === "Killer@003.com") {
-                document.getElementById('loginBox').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                loadAdminList();
+    <!-- Firebase Admin SDK & Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js";
+
+        // Yahan apni Firebase details daalein
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const ADMIN_EMAIL = "Killer@003.com";
+
+        window.loginUser = function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password).catch(e => alert("Error: " + e.message));
+        }
+
+        window.logout = function() { signOut(auth); }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("auth-section").style.display = "none";
+                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+                    document.getElementById("adminPanel").style.display = "block";
+                    loadAdminProducts();
+                } else {
+                    alert("Aap admin nahi hain!");
+                    document.getElementById("adminPanel").style.display = "none";
+                }
             } else {
-                alert("Wrong Password! Please try again.");
+                document.getElementById("auth-section").style.display = "block";
+                document.getElementById("adminPanel").style.display = "none";
             }
-        }
+        });
 
-        let products = JSON.parse(localStorage.getItem('skywoven_products')) || [
-            { id: 1, name: "Classic Men Jacket", price: "PKR 4,500", category: "Men", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
-            { id: 2, name: "Elegant Women Kurti", price: "PKR 2,800", category: "Women", image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500" }
-        ];
-
-        function addProduct() {
-            let name = document.getElementById('pName').value;
-            let price = document.getElementById('pPrice').value;
+        window.addProductToFirebase = async function() {
+            let name = document.getElementById('pName').value.trim();
+            let rawPrice = parseFloat(document.getElementById('pPriceValue').value);
+            let stock = parseInt(document.getElementById('pStock').value);
+            let discount = document.getElementById('pDiscount').value.trim();
             let category = document.getElementById('pCategory').value;
-            let image = document.getElementById('pImage').value;
+            let image = document.getElementById('pImage').value.trim();
 
-            if(!name || !price || !image) {
-                alert("Please fill all fields!");
-                return;
-            }
+            if(!name || isNaN(rawPrice) || !image) return alert("Please fill all required fields!");
 
-            let newProduct = { id: Date.now(), name, price, category, image };
-            products.push(newProduct);
-            localStorage.setItem('skywoven_products', JSON.stringify(products));
-
-            alert("Product uploaded successfully!");
-            document.getElementById('pName').value = '';
-            document.getElementById('pPrice').value = '';
-            document.getElementById('pImage').value = '';
-            loadAdminList();
+            try {
+                await addDoc(collection(db, "products"), { name, rawPrice, stock, discount, category, image });
+                alert("Product Uploaded Successfully!");
+                document.getElementById('pName').value = '';
+                document.getElementById('pPriceValue').value = '';
+                document.getElementById('pImage').value = '';
+                loadAdminProducts();
+            } catch (e) { alert("Error: " + e.message); }
         }
 
-        function loadAdminList() {
-            let list = document.getElementById('manageList');
-            list.innerHTML = '';
-            products.forEach((p, index) => {
-                list.innerHTML += `
-                    <div class="list-item">
-                        <span><b>${p.name}</b> (${p.price})</span>
-                        <button class="btn-del" onclick="deleteProduct(${index})">Delete</button>
-                    </div>
-                `;
-            });
+        async function loadAdminProducts() {
+            let listContainer = document.getElementById('manageList');
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                listContainer.innerHTML = '';
+                querySnapshot.forEach((docSnap) => {
+                    let p = docSnap.data();
+                    listContainer.innerHTML += `
+                        <div class="list-item">
+                            <span><b>${p.name}</b> (Rs. ${p.rawPrice})</span>
+                            <button class="btn-del" onclick="deleteProduct('${docSnap.id}')">Delete</button>
+                        </div>
+                    `;
+                });
+            } catch (e) { console.error(e); }
         }
 
-        function deleteProduct(index) {
-            if(confirm("Are you sure you want to delete this product?")) {
-                products.splice(index, 1);
-                localStorage.setItem('skywoven_products', JSON.stringify(products));
-                loadAdminList();
+        window.deleteProduct = async function(id) {
+            if(confirm("Delete this product?")) {
+                await deleteDoc(doc(db, "products", id));
+                loadAdminProducts();
             }
         }
     </script>
